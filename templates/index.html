@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="text-center">
+    <h2 class="text-3xl font-semibold mb-6">Welcome to Forensic Analysis</h2>
+    <p class="mb-8 text-lg">Upload your file to begin the analysis process.</p>
+    <form id="upload-form" action="/upload" method="POST" enctype="multipart/form-data" class="inline-block">
+        <input type="file" name="file" class="block w-full mb-4 p-2 border rounded-md" required>
+        <button id="submit-btn" type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+            Upload and Analyze
+        </button>
+    </form>
+    <div id="loading-spinner" class="hidden mt-6">
+        <svg class="animate-spin h-10 w-10 text-blue-600 mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+        </svg>
+        <p class="mt-2 text-lg text-blue-600">Analyzing... Please wait</p>
+    </div>
+</div>
+<script>
+    // Handle form submission
+    document.getElementById("upload-form").addEventListener("submit", function(event) {
+        // Prevent the default form submission to show spinner immediately
+        const submitButton = document.getElementById("submit-btn");
+        const spinner = document.getElementById("loading-spinner");
+
+        submitButton.disabled = true; // Disable button to prevent multiple clicks
+        submitButton.classList.add("hidden"); // Hide button
+        spinner.classList.remove("hidden"); // Show spinner
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "navigation.html" %}
+
+{% block content %}
+<div class="p-4">
+    <h2 class="text-3xl font-bold mb-6">Analysis Report</h2>
+
+    <!-- Report Download -->
+    <div class="mb-6">
+        <a href="{{ report }}" download class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+            Download Report
+        </a>
+    </div>
+
+    <!-- Graphs Section -->
+    <div>
+        <h3 class="text-2xl font-semibold mb-4">Graphs</h3>
+        <div class="flex flex-wrap gap-4">
+            {% for graph in graphs %}
+            <div class="bg-white p-4 rounded shadow-lg">
+                <img src="{{ graph }}" alt="Graph" style="max-width: 100%; margin: 10px 0; padding: 10px; border: 1px solid #e2e8f0; border-radius: 8px;">
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="mt-6 text-center">
+        <a href="/menu" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">Back to Menu</a>
+    </div>
+</div>
+{% endblock %}

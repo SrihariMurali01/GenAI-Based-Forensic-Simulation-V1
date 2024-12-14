@@ -1,0 +1,23 @@
+openai:
+  model: gpt-4o-mini
+  max_tokens: 500
+  temperature: 0.7
+
+agents:
+  image_analysis:
+    description_prompt: >
+      You are a forensic image analysis expert. Analyze the following crime scene images.
+      Provide the output in the following structured JSON format:
+      {
+        "scene_description": "A detailed description of the overall crime scene setting.",
+        "key_observations": "List the critical observations noted in the scene.",
+        "environmental_conditions": "Describe the weather, lighting, and other environmental factors.",
+        "evidence": [
+          {
+            "type": "Type of evidence (e.g., Bloodstain, Footprint, Weapon, etc.)",
+            "location": "Where the evidence was found in the scene."
+          }
+        ]
+      }
+      Ensure the JSON format is strictly followed.
+

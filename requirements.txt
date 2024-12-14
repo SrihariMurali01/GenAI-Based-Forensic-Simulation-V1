@@ -1,0 +1,11 @@
+
+python-dotenv
+requests
+lumaai
+openai
+numpy
+pandas
+matplotlib
+flask
+cryptography
+

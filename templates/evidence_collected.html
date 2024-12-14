@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 class="text-3xl font-bold mb-6 p-4">Evidences Collected</h2>
+{% if evidence %}
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 p-4">
+    {% for item in evidence %}
+    <div class="bg-white p-4 rounded shadow">
+        <h3 class="text-lg font-semibold mb-2">Evidence File</h3>
+        <p class="text-sm text-gray-600">File: {{ item }}</p>
+        <a href="{{ item }}" download class="block mt-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 text-center">
+            Download Evidence
+        </a>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<p class="text-gray-500">No decrypted evidence available.</p>
+{% endif %}
+<div class="mt-6 text-center">
+    <a href="/menu" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">Back to Menu</a>
+</div>
+{% endblock %}

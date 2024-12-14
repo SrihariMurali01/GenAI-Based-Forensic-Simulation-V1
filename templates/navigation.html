@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+{% block content %}
+<div style="display: flex; min-height: calc(100vh - 280px); font-family: Arial, sans-serif;">
+    <!-- Sidebar Menu -->
+    <aside style="width: 20%; background-color: #2d3748; color: white; padding: 20px; box-sizing: border-box; position: relative;">
+        <h2 style="font-size: 1.25rem; font-weight: bold; margin-bottom: 16px;">Menu</h2>
+        <ul style="list-style: none; padding: 0; margin: 0;">
+            <li style="margin-bottom: 8px;" onmouseover="showHoverText('🖼️ Analyze Image: The first step to unravel mysteries!')" onmouseout="clearHoverText()">
+                <a href="/load-section/analyze-image" class="menu-link" style="display: block; padding: 10px 16px; border-radius: 4px; text-decoration: none; color: white; background-color: transparent; transition: background-color 0.3s;" 
+                   onmouseover="this.style.backgroundColor='#4a5568'" 
+                   onmouseout="this.style.backgroundColor='transparent'">Analyze Image</a>
+            </li>
+            <li style="margin-bottom: 8px;" onmouseover="showHoverText('📄 Analysis Report: Delve deeper into the evidence')" onmouseout="clearHoverText()">
+                <a href="/load-section/summarize" class="menu-link" style="display: block; padding: 10px 16px; border-radius: 4px; text-decoration: none; color: white; background-color: transparent; transition: background-color 0.3s;" 
+                   onmouseover="this.style.backgroundColor='#4a5568'" 
+                   onmouseout="this.style.backgroundColor='transparent'">Analysis Report</a>
+            </li>
+            <li style="margin-bottom: 8px;" onmouseover="showHoverText('🎥 Simulate Video: Watch the crime scene unfold!')" onmouseout="clearHoverText()">
+                <a href="/load-section/simulate-video" class="menu-link" style="display: block; padding: 10px 16px; border-radius: 4px; text-decoration: none; color: white; background-color: transparent; transition: background-color 0.3s;" 
+                   onmouseover="this.style.backgroundColor='#4a5568'" 
+                   onmouseout="this.style.backgroundColor='transparent'">Simulate Video</a>
+            </li>
+            <li style="margin-bottom: 8px;" onmouseover="showHoverText('🧾 Evidence Collected: View decrypted files of importance')" onmouseout="clearHoverText()">
+                <a href="/load-section/evidence-collected" class="menu-link" style="display: block; padding: 10px 16px; border-radius: 4px; text-decoration: none; color: white; background-color: transparent; transition: background-color 0.3s;" 
+                   onmouseover="this.style.backgroundColor='#4a5568'" 
+                   onmouseout="this.style.backgroundColor='transparent'">Evidence Collected</a>
+            </li>
+            <li style="margin-bottom: 8px;" onmouseover="showHoverText('📂 Previous Generations: Revisit your simulations')" onmouseout="clearHoverText()">
+                <a href="/load-section/previous-generations" class="menu-link" style="display: block; padding: 10px 16px; border-radius: 4px; text-decoration: none; color: white; background-color: transparent; transition: background-color 0.3s;" 
+                   onmouseover="this.style.backgroundColor='#4a5568'" 
+                   onmouseout="this.style.backgroundColor='transparent'">Previous Generations</a>
+            </li>
+            <li onmouseover="showHoverText('⚠️ Exit: Clear all data and leave the system')" onmouseout="clearHoverText()">
+                <a href="#" class="menu-link" onclick="showExitModal()" style="display: block; padding: 10px 16px; border-radius: 4px; text-decoration: none; color: white; background-color: #e53e3e; transition: background-color 0.3s;" 
+                   onmouseover="this.style.backgroundColor='#c53030'" 
+                   onmouseout="this.style.backgroundColor='#e53e3e'">Exit</a>
+            </li>
+        </ul>
+    </aside>
+
+    <!-- Content Area -->
+    <section style="flex: 1; background-color: #f7fafc; padding: 40px; box-sizing: border-box; border-left: 1px solid #e2e8f0; position: relative;">
+        <div>
+            <!-- Quirky Paragraph -->
+            <h2 style="font-size: 2rem; font-weight: bold; margin-bottom: 16px;">Welcome to Evidentia!</h2>
+            <p style="font-size: 1rem; line-height: 1.6; margin-bottom: 24px;">
+                "Evidentia isn't just a forensic tool; it's your crime-solving companion. Dive into evidence, simulate scenes, and uncover truths 
+                that even Sherlock Holmes would envy! Let the bytes reveal what lies beneath."
+            </p>
+        </div>
+
+        <!-- Hover Text -->
+        <div id="hover-text" style="font-size: 1.2rem; color: #2d3748; font-weight: bold; background-color: #edf2f7; padding: 10px; border-radius: 6px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); display: none;"></div>
+
+        <!-- Loading Spinner -->
+        <div id="loading-spinner" style="display: none; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(255, 255, 255, 0.75); display: flex; align-items: center; justify-content: center; z-index: 50;">
+            <div style="text-align: center;">
+                <svg style="animation: spin 1s linear infinite; height: 48px; width: 48px; color: #3182ce;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle style="opacity: 0.25;" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path style="opacity: 0.75;" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+                </svg>
+                <p style="margin-top: 16px; font-size: 1rem; color: #3182ce;">Loading... Please wait</p>
+            </div>
+        </div>
+    </section>
+</div>
+
+<div id="exit-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); z-index: 1000; justify-content: center; align-items: center;">
+    <div style="background-color: white; padding: 20px; border-radius: 8px; max-width: 400px; text-align: center; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+        <h2 style="font-size: 1.5rem; font-weight: bold; margin-bottom: 16px; color: #e53e3e;">⚠️ Confirm Exit</h2>
+        <p style="font-size: 1rem; margin-bottom: 24px; color: #4a5568;">
+            Are you sure you want to exit? This action will permanently delete all input files, reports, and decrypted data.
+        </p>
+        <div style="display: flex; justify-content: space-between;">
+            <button onclick="confirmClearAllData()" style="background-color: #e53e3e; color: white; padding: 10px 16px; border: none; border-radius: 4px; cursor: pointer;">Yes, Clear Data</button>
+            <button onclick="hideExitModal()" style="background-color: #4a5568; color: white; padding: 10px 16px; border: none; border-radius: 4px; cursor: pointer;">Cancel</button>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    // Show hover text dynamically
+    function showHoverText(text) {
+        const hoverText = document.getElementById("hover-text");
+        hoverText.textContent = text;
+        hoverText.style.display = "block";
+    }
+
+    // Confirm Exit - Custom Modal
+    function showExitModal() {
+        // Ensure the spinner is hidden before showing the modal
+        const spinner = document.getElementById("loading-spinner");
+        if (spinner) {
+            spinner.style.display = "none"; // Hide spinner
+        }
+
+        const modal = document.getElementById("exit-modal");
+        modal.style.display = "flex"; // Show the modal
+    }
+
+    function hideExitModal() {
+        const modal = document.getElementById("exit-modal");
+        modal.style.display = "none"; // Hide the modal
+
+        // Ensure the spinner is hidden when modal is canceled
+        const spinner = document.getElementById("loading-spinner");
+        if (spinner) {
+            spinner.style.display = "none"; // Hide spinner
+        }
+    }
+
+    function confirmClearAllData() {
+        // Redirect to the backend route to clear all data
+        window.location.href = "/clear-encrypted-data";
+    }
+
+    // Hide hover text when mouse leaves
+    function clearHoverText() {
+        const hoverText = document.getElementById("hover-text");
+        hoverText.style.display = "none";
+    }
+
+    // Show spinner when menu links are clicked
+    document.querySelectorAll(".menu-link").forEach(link => {
+        link.addEventListener("click", function() {
+            const spinner = document.getElementById("loading-spinner");
+            spinner.style.display = "flex"; // Show spinner
+        });
+    });
+
+    // Hide spinner on page load
+    window.onload = function() {
+        const spinner = document.getElementById("loading-spinner");
+        spinner.style.display = "none"; // Hide spinner
+    };
+
+    // Ensure spinner is hidden on browser navigation (e.g., back button)
+    window.addEventListener("pageshow", function() {
+        const spinner = document.getElementById("loading-spinner");
+        if (spinner) {
+            spinner.style.display = "none"; // Ensure spinner is hidden
+        }
+    });
+</script>
+{% endblock %}

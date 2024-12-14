@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evidentia | The GenAI Forensic Analysis Framework</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            /* Ensure the background image path is correct */
+            background-image: url('/static/images/bg.jpg');
+            background-size: cover; /* Makes the background cover the entire page */
+            background-position: center; /* Centers the background image */
+            background-repeat: no-repeat; /* Prevents the background from repeating */
+            background-attachment: fixed; /* Keeps the background fixed while scrolling */
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800 flex flex-col min-h-screen">
+    <!-- Header -->
+    <header class="bg-gray-900 text-white py-6">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-4xl font-extrabold tracking-wide">Evidentia</h1>
+            <p class="mt-2 text-lg font-light">"Unraveling mysteries, one byte at a time"</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow container mx-auto py-8">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-4">
+        <div class="container mx-auto text-center">
+            <p class="text-sm">Srihari M | Suraj R S | Vaishnavi M</p>
+            <p class="text-sm">Under the guidance of Dr. Bhagyashree Ambore</p>
+        </div>
+    </footer>
+
+    <script>
+        // JavaScript to toggle spinner visibility during form submission
+        document.getElementById("upload-form").addEventListener("submit", function(event) {
+            const submitButton = document.getElementById("submit-btn");
+            const spinner = document.getElementById("loading-spinner");
+
+            submitButton.disabled = true; // Disable the button to prevent multiple submissions
+            spinner.classList.remove("hidden"); // Show the spinner
+        });
+
+        // Hide spinner on page load (if still visible for any reason)
+        window.onload = function() {
+            const spinner = document.getElementById("loading-spinner");
+            spinner.classList.add("hidden"); // Hide spinner
+        };
+    </script>
+</body>
+</html>
